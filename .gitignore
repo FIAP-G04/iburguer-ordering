@@ -6,7 +6,7 @@
 *.user
 *.sln.docstates
 .idea/
-src/iBurguer.Orders.API/appsettings.Development.json
+src/iBurguer.Ordering.API/appsettings.Development.json
 
 # Build results
 
@@ -133,3 +133,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+src/iBurguer.Ordering.API/appsettings.Development.json
+src/iBurguer.Ordering.API/appsettings.Development.json
+src/iBurguer.Ordering.API/appsettings.Development.json
