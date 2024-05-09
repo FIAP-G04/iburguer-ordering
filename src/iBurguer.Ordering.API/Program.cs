@@ -11,7 +11,10 @@ builder.AddWebApi()
     .AddUseCases()
     .AddSerilog();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 app.UseWebApi();
+app.MapHealthChecks("/hc");
 app.Run();
