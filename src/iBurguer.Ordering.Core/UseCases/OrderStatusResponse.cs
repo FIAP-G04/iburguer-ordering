@@ -15,7 +15,7 @@ public record OrderStatusResponse
         return new OrderStatusResponse
         {
             OrderId = order.Id,
-            OrderStatus = tracking.OrderStatus.ToString(),
+            OrderStatus = tracking.OrderStatus.Name,
             UpdatedAt = tracking.When
         };
     }
