@@ -32,7 +32,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<int> GenerateOrderNumber(CancellationToken cancellation)
     {
-        return await _context.Database.SqlQuery<int>($"SELECT NEXTVAL('sq_order_number') AS \"Value\"").FirstOrDefaultAsync();
+        return await _context.Database.SqlQuery<int>($"SELECT NEXTVAL('sq_order_number') AS \"Value\"").FirstOrDefaultAsync(cancellation);
     }
 
     public async Task<PaginatedList<Order>> GetPagedOrders(int page, int limit, CancellationToken cancellation)
@@ -48,8 +48,8 @@ public class OrderRepository : IOrderRepository
             .Skip((page - 1) * limit)
             .Take(limit);
 
-        var total = await _context.Orders.CountAsync();
-        var paginatedData = await query.ToListAsync();
+        var total = await _context.Orders.CountAsync(cancellation);
+        var paginatedData = await query.ToListAsync(cancellation);
 
         var paginatedList = new PaginatedList<Order>
         {

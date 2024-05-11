@@ -6,14 +6,13 @@ namespace iBurguer.Ordering.Infrastructure.PostgreSQL;
 
 public class Context : DbContext
 {
-    public Context(DbContextOptions<Context> options) : base(options) =>
+    public Context(DbContextOptions<Context> optionsBuilder) : base(optionsBuilder) =>
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     
     public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderTracking> Trackings { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-        options.EnableServiceProviderCaching(false);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        optionsBuilder.EnableServiceProviderCaching(false);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

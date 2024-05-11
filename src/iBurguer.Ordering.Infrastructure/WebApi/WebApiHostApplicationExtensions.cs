@@ -15,6 +15,7 @@ public static class WebApiHostApplicationExtensions
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
         builder.Services.AddProblemDetails();
         builder.AddSwagger();
+        builder.Services.AddHealthChecks();
 
         builder.Services.AddCors(options =>
         {
@@ -36,6 +37,7 @@ public static class WebApiHostApplicationExtensions
         app.UseExceptionHandler();
         app.UseHttpsRedirection();
         app.MapControllers();
+        app.MapHealthChecks("/hc");
 
         return app;
     }
