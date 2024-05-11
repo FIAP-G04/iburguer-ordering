@@ -7,7 +7,7 @@ namespace iBurguer.Ordering.Core.Domain;
 public class Order : Entity<Guid>, IAggregateRoot
 {
     private IList<OrderTracking> _trackings = new List<OrderTracking>();
-    private IList<OrderItem> _items;
+    private readonly IList<OrderItem> _items;
 
     public Guid Id { get; set; } = Guid.NewGuid();
     public OrderNumber Number { get; init; }
