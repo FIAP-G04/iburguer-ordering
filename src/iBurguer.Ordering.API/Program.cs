@@ -13,12 +13,9 @@ builder.AddWebApi()
     .AddUseCases()
     .AddSerilog();
 
-builder.Services.AddHealthChecks();
-
 var app = builder.Build();
 
 app.UseWebApi();
-app.MapHealthChecks("/hc");
 
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetService<Context>();

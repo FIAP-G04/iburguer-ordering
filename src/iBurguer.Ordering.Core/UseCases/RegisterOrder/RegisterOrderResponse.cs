@@ -6,7 +6,7 @@ public record RegisterOrderResponse
 {
     public Guid OrderId { get; set; }
     public int OrderNumber { get; set; }
-    public string PickupCode { get; set; }
+    public string PickupCode { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
     
     public static RegisterOrderResponse Convert(Order order)

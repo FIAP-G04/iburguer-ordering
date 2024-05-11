@@ -42,6 +42,7 @@ public class OrderController : ControllerBase
     /// <remarks>Registers a new order in the system.</remarks>
     /// <param name="useCase">The use case responsible for registering the order.</param>
     /// <param name="request">The request containing information about the order to be registered.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="201">Order created successfully.</response>
     /// <response code="422">Invalid request. Missing or invalid parameters.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
@@ -61,6 +62,7 @@ public class OrderController : ControllerBase
     /// <remarks>Cancels an existing order in the system.</remarks>
     /// <param name="useCase">The use case responsible for canceling the order.</param>
     /// <param name="id">The ID of the order to be canceled.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="200">Order canceled successfully.</response>
     /// <response code="404">Order not found.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
@@ -80,6 +82,7 @@ public class OrderController : ControllerBase
     /// <remarks>Marks an existing order as completed in the system.</remarks>
     /// <param name="useCase">The use case responsible for completing the order.</param>
     /// <param name="id">The ID of the order to be completed.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="200">Order completed successfully.</response>
     /// <response code="404">Order not found.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
@@ -99,6 +102,7 @@ public class OrderController : ControllerBase
     /// <remarks>Confirms an existing order in the system.</remarks>
     /// <param name="useCase">The use case responsible for confirming the order.</param>
     /// <param name="id">The ID of the order to be confirmed.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="200">Order confirmed successfully.</response>
     /// <response code="404">Order not found.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
@@ -118,6 +122,7 @@ public class OrderController : ControllerBase
     /// <remarks>Delivers an existing order in the system.</remarks>
     /// <param name="useCase">The use case responsible for delivering the order.</param>
     /// <param name="id">The ID of the order to be delivered.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="200">Order delivered successfully.</response>
     /// <response code="404">Order not found.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
@@ -137,6 +142,7 @@ public class OrderController : ControllerBase
     /// <remarks>Starts processing an order in the system.</remarks>
     /// <param name="useCase">The use case responsible for starting the order processing.</param>
     /// <param name="id">The ID of the order to be processed.</param>
+    /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <response code="200">Order processing started successfully.</response>
     /// <response code="404">Order not found.</response>
     /// <response code="500">Internal server error. Something went wrong on the server side.</response>
