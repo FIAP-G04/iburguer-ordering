@@ -12,8 +12,8 @@ public class OrderTrackingConfiguration : IEntityTypeConfiguration<OrderTracking
         builder.ToTable("OrderTrackings");
         
         builder.HasKey(c => c.TrackingId);
-        
-        builder.Property(c => c.TrackingId).IsRequired();
+
+        builder.Property(c => c.TrackingId).IsRequired().ValueGeneratedNever();
         
         builder.Property(c => c.When).IsRequired();
         

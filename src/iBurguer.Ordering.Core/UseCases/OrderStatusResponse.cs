@@ -15,7 +15,7 @@ public record OrderStatusResponse
         return new OrderStatusResponse
         {
             OrderId = order.Id,
-            OrderStatus = Enum.GetName(typeof(OrderStatus), tracking.OrderStatus),
+            OrderStatus = tracking.OrderStatus.ToString(),
             UpdatedAt = tracking.When
         };
     }
