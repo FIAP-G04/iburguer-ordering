@@ -6,18 +6,20 @@ namespace iBurguer.Ordering.Core.Domain;
 
 public class Order : Entity<Guid>, IAggregateRoot
 {
-    private IList<OrderTracking> _trackings = new List<OrderTracking>();
+    private readonly List<OrderTracking> _trackings = new();
     private readonly IList<OrderItem> _items;
-
-    public Guid Id { get; set; } = Guid.NewGuid();
+    
     public OrderNumber Number { get; init; }
     public OrderType Type { get; init; }
     public PickupCode PickupCode { get; init; }
     public PaymentMethod PaymentMethod { get; init; }
     public Guid? BuyerId { get; init; }
     public DateTime CreatedAt { get; init; }
-    
-    private Order() {}
+
+    private Order()
+    {
+        _items = new List<OrderItem>();
+    }
 
     public Order(OrderNumber number, OrderType type, PaymentMethod paymentMethod, Guid? buyerId, IList<OrderItem> items)
     {
