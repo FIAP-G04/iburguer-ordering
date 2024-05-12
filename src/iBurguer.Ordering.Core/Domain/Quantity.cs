@@ -15,7 +15,7 @@ public sealed record Quantity
         get => _value;
         private set
         {
-            Exceptions.InvalidQuantity.ThrowIf(value < 1);
+            Exceptions.InvalidQuantityException.ThrowIf(value < 1);
 
             _value = value;
         }

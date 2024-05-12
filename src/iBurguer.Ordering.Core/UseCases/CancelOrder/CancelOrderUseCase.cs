@@ -18,7 +18,7 @@ namespace iBurguer.Ordering.Core.UseCases.CancelOrder
         {
             var order = await _repository.GetById(orderId, cancellation);
 
-            Exceptions.OrderNotFound.ThrowIfNull(order);
+            Exceptions.OrderNotFoundException.ThrowIfNull(order);
 
             order.Cancel();
 

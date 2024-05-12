@@ -17,7 +17,7 @@ namespace iBurguer.Ordering.Core.UseCases.CompleteOrder
         {
             var order = await _repository.GetById(orderId, cancellation);
 
-            Exceptions.OrderNotFound.ThrowIfNull(order);
+            Exceptions.OrderNotFoundException.ThrowIfNull(order);
 
             order.Complete();
 

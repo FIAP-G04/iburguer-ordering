@@ -15,7 +15,7 @@ public class OrderItem : Entity<Guid>
         get { return _productName; }
         private set 
         {
-            ProductNameCannotBeNullOrEmpty.ThrowIfEmpty(value);
+            ProductNameCannotBeNullOrEmptyException.ThrowIfEmpty(value);
             
             _productName = value;
         }
