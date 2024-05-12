@@ -10,7 +10,7 @@ public record OrderNumber
     
     public OrderNumber(int value)
     {
-        InvalidOrderNumber.ThrowIf(value <= 0);
+        InvalidOrderNumberException.ThrowIf(value <= 0);
         
         Value = value;
     }

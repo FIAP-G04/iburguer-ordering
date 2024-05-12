@@ -18,7 +18,7 @@ namespace iBurguer.Ordering.Core.UseCases.StartOrder
         {
             var order = await _repository.GetById(orderId, cancellation);
 
-            Exceptions.OrderNotFound.ThrowIfNull(order);
+            Exceptions.OrderNotFoundException.ThrowIfNull(order);
 
             order.Start();
 

@@ -40,19 +40,19 @@ public sealed class CustomExceptionHandler(ILogger<CustomExceptionHandler> logge
 
     private int GetStatusCodeFromException(Exception exception) => exception switch
     {
-        OrderTrackingNotFound => StatusCodes.Status404NotFound,
-        OrderNotFound => StatusCodes.Status404NotFound,
-        CannotToStartOrder => StatusCodes.Status422UnprocessableEntity,
-        CannotToConfirmOrder => StatusCodes.Status422UnprocessableEntity,
-        CannotToCompleteOrder => StatusCodes.Status422UnprocessableEntity,
-        CannotToDeliverOrder => StatusCodes.Status422UnprocessableEntity,
-        CannotToCancelOrder => StatusCodes.Status422UnprocessableEntity,
-        ThePickupCodeCannotBeEmptyOrNull => StatusCodes.Status422UnprocessableEntity,
-        InvalidOrderNumber => StatusCodes.Status422UnprocessableEntity,
-        InvalidPrice => StatusCodes.Status422UnprocessableEntity,
-        InvalidQuantity => StatusCodes.Status422UnprocessableEntity,
-        ProductNameCannotBeNullOrEmpty => StatusCodes.Status422UnprocessableEntity,
-        LeastOneOrderItem => StatusCodes.Status422UnprocessableEntity,
+        OrderTrackingNotFoundException => StatusCodes.Status404NotFound,
+        OrderNotFoundException => StatusCodes.Status404NotFound,
+        CannotToStartOrderException => StatusCodes.Status422UnprocessableEntity,
+        CannotToConfirmOrderException => StatusCodes.Status422UnprocessableEntity,
+        CannotToCompleteOrderException => StatusCodes.Status422UnprocessableEntity,
+        CannotToDeliverOrderException => StatusCodes.Status422UnprocessableEntity,
+        CannotToCancelOrderException => StatusCodes.Status422UnprocessableEntity,
+        ThePickupCodeCannotBeEmptyOrNullException => StatusCodes.Status422UnprocessableEntity,
+        InvalidOrderNumberException => StatusCodes.Status422UnprocessableEntity,
+        InvalidPriceException => StatusCodes.Status422UnprocessableEntity,
+        InvalidQuantityException => StatusCodes.Status422UnprocessableEntity,
+        ProductNameCannotBeNullOrEmptyException => StatusCodes.Status422UnprocessableEntity,
+        LeastOneOrderItemException => StatusCodes.Status422UnprocessableEntity,
 
         _ => StatusCodes.Status500InternalServerError
     };

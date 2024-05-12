@@ -21,8 +21,8 @@ public class Order : Entity<Guid>, IAggregateRoot
 
     public Order(OrderNumber number, OrderType type, PaymentMethod paymentMethod, Guid? buyerId, IList<OrderItem> items)
     {
-        InvalidOrderNumber.ThrowIfNull(number);
-        LeastOneOrderItem.ThrowIf(!items.Any());
+        InvalidOrderNumberException.ThrowIfNull(number);
+        LeastOneOrderItemException.ThrowIf(!items.Any());
         
         Number = number;
         Type = type;
@@ -55,35 +55,35 @@ public class Order : Entity<Guid>, IAggregateRoot
 
     public void Confirm()
     {
-        CannotToConfirmOrder.ThrowIf(CurrentStatus != OrderStatus.WaitingForPayment);
+        CannotToConfirmOrderException.ThrowIf(CurrentStatus != OrderStatus.WaitingForPayment);
 
         _trackings.Add(new OrderTracking(OrderStatus.Confirmed, this));
     }
 
     public void Start()
     {
-        CannotToStartOrder.ThrowIf(CurrentStatus != OrderStatus.Confirmed);
+        CannotToStartOrderException.ThrowIf(CurrentStatus != OrderStatus.Confirmed);
 
         _trackings.Add(new OrderTracking(OrderStatus.InProgress, this));
     }
 
     public void Complete()
     {
-        CannotToCompleteOrder.ThrowIf(CurrentStatus != OrderStatus.InProgress);
+        CannotToCompleteOrderException.ThrowIf(CurrentStatus != OrderStatus.InProgress);
 
         _trackings.Add(new OrderTracking(OrderStatus.ReadyForPickup, this));
     }
 
     public void Deliver()
     {
-        CannotToDeliverOrder.ThrowIf(CurrentStatus != OrderStatus.ReadyForPickup);
+        CannotToDeliverOrderException.ThrowIf(CurrentStatus != OrderStatus.ReadyForPickup);
 
         _trackings.Add(new OrderTracking(OrderStatus.PickedUp, this));
     }
 
     public void Cancel()
     {
-        CannotToCancelOrder.ThrowIf(CurrentStatus != OrderStatus.WaitingForPayment && CurrentStatus != OrderStatus.Confirmed);
+        CannotToCancelOrderException.ThrowIf(CurrentStatus != OrderStatus.WaitingForPayment && CurrentStatus != OrderStatus.Confirmed);
 
         _trackings.Add(new OrderTracking(OrderStatus.Canceled, this));
     }
