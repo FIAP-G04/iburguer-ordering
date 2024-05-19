@@ -87,9 +87,10 @@ public class QuantityTests : BaseTests
     }
     
     [Theory, AutoData]
-    public void ShouldDecrementValueByGivenQuantity(int value, int decrementValue)
+    public void ShouldDecrementValueByGivenQuantity(int value)
     {
         // Arrange
+        var decrementValue = value - 1;
         var quantity = new Quantity(value);
 
         // Act
@@ -97,5 +98,48 @@ public class QuantityTests : BaseTests
 
         // Assert
         quantity.Value.Should().Be(value - decrementValue);
+    }
+    
+    [Fact]
+    public void ShouldReturnCorrectTextualRepresentation()
+    {
+        // Arrange
+        var quantity = new Quantity(50);
+
+        // Act
+        var result = quantity.ToString();
+
+        // Assert
+        result.Should().Be("50");
+    }
+    
+    [Theory]
+    [InlineData(100)]
+    [InlineData(1000)]
+    public void ShouldPerformImplicitConversionFromIntToQuantityCorrectly(int value)
+    {
+        // Arrange
+        Quantity quantity = new Quantity(value);
+
+        // Act
+        int result = quantity;
+
+        // Assert
+        result.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData(100)]
+    [InlineData(1000)]
+    public void ShouldPerformImplicitConversionFromQuantityToIntCorrectly(int value)
+    {
+        // Arrange
+        Quantity quantity = value;
+
+        // Act
+        int result = quantity.Value;
+
+        // Assert
+        result.Should().Be(value);
     }
 }

@@ -14,7 +14,7 @@ public static class Exceptions
     
     public class CannotToCancelOrderException() : DomainException<CannotToCancelOrderException>("Only orders in the 'WaitingForPayment' or 'Confirmed' states can be canceled.");
     
-    public class ThePickupCodeCannotBeEmptyOrNullException() : DomainException<CannotToCancelOrderException>("The pickup code cannot be null or empty.");
+    public class ThePickupCodeCannotBeEmptyOrNullException() : DomainException<ThePickupCodeCannotBeEmptyOrNullException>("The pickup code cannot be null or empty.");
 
     public class InvalidOrderNumberException() : DomainException<InvalidOrderNumberException>("A value greater than zero must be provided for the order number.");
     
