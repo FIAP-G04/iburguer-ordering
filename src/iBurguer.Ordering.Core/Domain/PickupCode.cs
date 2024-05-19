@@ -15,7 +15,7 @@ public record PickupCode
     
     public PickupCode(string code)
     {
-        Exceptions.ThePickupCodeCannotBeEmptyOrNullException.ThrowIfEmpty(code);
+        ThePickupCodeCannotBeEmptyOrNullException.ThrowIfEmpty(code);
 
         Code = code;
     }
