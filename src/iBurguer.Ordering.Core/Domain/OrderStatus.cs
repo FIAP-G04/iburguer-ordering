@@ -4,7 +4,7 @@ namespace iBurguer.Ordering.Core.Domain;
 
 public class OrderStatus : SmartEnum<OrderStatus>
 {
-    public static readonly OrderStatus WaitingForPayment = new("WaitForPayment", 1);
+    public static readonly OrderStatus WaitingForPayment = new("WaitingForPayment", 1);
     public static readonly OrderStatus Confirmed = new("Confirmed", 2);
     public static readonly OrderStatus InProgress = new("InProgress", 3);
     public static readonly OrderStatus ReadyForPickup = new("ReadyForPickup", 4);
