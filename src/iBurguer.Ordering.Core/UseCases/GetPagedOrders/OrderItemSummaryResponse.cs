@@ -6,7 +6,7 @@ public record OrderItemSummaryResponse()
 {
     public Guid OrderItemId { get; set; }
 
-    public ushort Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public decimal UnitPrice { get; set; }
 

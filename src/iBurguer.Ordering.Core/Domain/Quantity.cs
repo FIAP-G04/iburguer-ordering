@@ -4,26 +4,26 @@ namespace iBurguer.Ordering.Core.Domain;
 
 public sealed record Quantity
 {
-    private ushort _value = 1;
+    private int _value = 1;
     
     private Quantity() {}
 
-    public Quantity(ushort quantity) => Value = quantity;
+    public Quantity(int quantity) => Value = quantity;
 
-    public ushort Value
+    public int Value
     {
         get => _value;
         private set
         {
-            Exceptions.InvalidQuantityException.ThrowIf(value < 1);
+            InvalidQuantityException.ThrowIf(value < 1);
 
             _value = value;
         }
     }
 
-    public static implicit operator ushort(Quantity quantity) => quantity.Value;
+    public static implicit operator int(Quantity quantity) => quantity.Value;
 
-    public static implicit operator Quantity(ushort value) => new(value);
+    public static implicit operator Quantity(int value) => new(value);
 
     public override string ToString() => Value.ToString();
 
@@ -31,9 +31,9 @@ public sealed record Quantity
 
     public void Increment() => Value++;
 
-    public void Increment(Quantity quantity) => Value = (ushort)(Value + quantity.Value);
+    public void Increment(Quantity quantity) => Value = Value + quantity.Value;
 
     public void Decrement() => Value--;
 
-    public void Decrement(Quantity quantity) => Value = (ushort)(Value - quantity.Value);
+    public void Decrement(Quantity quantity) => Value = Value - quantity.Value;
 }
