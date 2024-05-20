@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Domain;
 using iBurguer.Ordering.Infrastructure.PostgreSQL.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace iBurguer.Ordering.Infrastructure.PostgreSQL.Configurations;
 
+[ExcludeFromCodeCoverage]
 public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 {
     public void Configure(EntityTypeBuilder<OrderItem> builder)

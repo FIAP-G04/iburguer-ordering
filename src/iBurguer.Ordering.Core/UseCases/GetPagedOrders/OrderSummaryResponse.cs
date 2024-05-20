@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Domain;
 
 namespace iBurguer.Ordering.Core.UseCases.GetPagedOrders;
 
+[ExcludeFromCodeCoverage]
 public record OrderSummaryResponse()
 {
     public Guid OrderId { get; set; }

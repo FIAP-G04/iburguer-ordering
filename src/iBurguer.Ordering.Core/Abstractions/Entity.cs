@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace iBurguer.Ordering.Core.Abstractions;
 
+[ExcludeFromCodeCoverage]
 public abstract class Entity<TId> : IEntity
     where TId : struct
 {
