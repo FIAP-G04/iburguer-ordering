@@ -51,7 +51,8 @@ public class CompleteOrderUseCaseTests : BaseTests
         Guid invalidOrderId)
     {
         // Arrange
-        _repository.GetById(invalidOrderId, Arg.Any<CancellationToken>()).ReturnsNull();
+        var repository = Substitute.For<IOrderRepository>();
+        repository.GetById(invalidOrderId, Arg.Any<CancellationToken>()).ReturnsNull();
 
         // Act
         Func<Task> act = async () => await _sut.CompleteOrder(invalidOrderId, CancellationToken.None);

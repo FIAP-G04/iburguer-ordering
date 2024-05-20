@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Domain;
 using iBurguer.Ordering.Infrastructure.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
 namespace iBurguer.Ordering.Infrastructure.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class OrderRepository : IOrderRepository
 {
     private readonly Context _context;

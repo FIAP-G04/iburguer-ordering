@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Ardalis.SmartEnum;
 using iBurguer.Ordering.Core.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace iBurguer.Ordering.Infrastructure.PostgreSQL.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class PropertyBuilderExtensions
 {
 

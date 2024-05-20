@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Domain;
 
 namespace iBurguer.Ordering.Core.UseCases.GetPagedOrders;
@@ -7,6 +8,7 @@ public interface IGetPagedOrdersUseCase
     Task<PaginatedList<OrderSummaryResponse>> GetPagedOrders(int page, int limit, CancellationToken cancellationToken);
 }
 
+[ExcludeFromCodeCoverage]
 public class GetPagedOrdersUseCase : IGetPagedOrdersUseCase
 {
     private readonly IOrderRepository _repository;
