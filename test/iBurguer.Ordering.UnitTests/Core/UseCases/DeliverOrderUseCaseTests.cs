@@ -15,7 +15,7 @@ namespace iBurguer.Ordering.UnitTests.Core.UseCases;
 public class DeliverOrderUseCaseTests : BaseTests
 {
     private readonly IOrderRepository _repository;
-    private readonly IDeliverOrderUseCase _sut;
+    private readonly DeliverOrderUseCase _sut;
 
     public DeliverOrderUseCaseTests()
     {

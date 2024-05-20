@@ -12,7 +12,7 @@ namespace iBurguer.Ordering.UnitTests.Core.UseCases;
 public class CancelOrderUseCaseTests : BaseTests
 {
     private readonly IOrderRepository _repository;
-    private readonly ICancelOrderUseCase _sut;
+    private readonly CancelOrderUseCase _sut;
 
     public CancelOrderUseCaseTests()
     {
