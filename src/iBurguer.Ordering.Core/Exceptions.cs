@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Abstractions;
 
 namespace iBurguer.Ordering.Core;
 
+[ExcludeFromCodeCoverage]
 public static class Exceptions
 {
     public class CannotToStartOrderException() : DomainException<CannotToStartOrderException>("Only orders in the 'Confirmed' state can initiate preparation.");
