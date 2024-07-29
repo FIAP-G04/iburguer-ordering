@@ -8,6 +8,7 @@ using iBurguer.Ordering.Core.UseCases.RegisterOrder;
 using iBurguer.Ordering.UnitTests.Util;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using OrderItemRequest = iBurguer.Ordering.Core.UseCases.RegisterOrder.OrderItemRequest;
 
 namespace iBurguer.Ordering.UnitTests.Core.UseCases;
 

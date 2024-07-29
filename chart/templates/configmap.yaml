@@ -7,3 +7,9 @@ metadata:
     {{- include "FIAP.Diner.labels" . | nindent 4 }}
 data:
   ConnectionStrings__PostgreSql: Host={{ .Values.configmap.connectionstring.host }}:{{ .Values.configmap.connectionstring.port }};Database={{ .Values.configmap.connectionstring.database }};Username={{ .Values.configmap.connectionstring.user }};Password={{ .Values.configmap.connectionstring.password }}
+  MassTransit__Region: {{ .Values.configmap.massTransit.region }}
+  MassTransit__AccessKey: {{ .Values.configmap.massTransit.accessKey }}
+  MassTransit__SecretKey: {{ .Values.configmap.massTransit.secretKey }}
+  MassTransit__CartClosedQueue: {{ .Values.configmap.massTransit.cartClosedQueue }}
+  MassTransit__PaymentApprovedQueue: {{ .Values.configmap.massTransit.paymentApprovedQueue }}
+  MassTransit__PaymentRefusedQueue: {{ .Values.configmap.massTransit.paymentRefusedQueue }}

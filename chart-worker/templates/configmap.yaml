@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "FIAP.Diner.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "FIAP.Diner.labels" . | nindent 4 }}
+data:
+  MassTransit__Region: {{ .Values.configmap.massTransit.region }}
+  MassTransit__AccessKey: {{ .Values.configmap.massTransit.accessKey }}
+  MassTransit__SecretKey: {{ .Values.configmap.massTransit.secretKey }}
+  MassTransit__Queue: {{ .Values.configmap.massTransit.queue }}
