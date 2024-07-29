@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: cdvt/iburguer-ordering
+  repository: cdvt/iburguer-ordering-worker
   pullPolicy: IfNotPresent
   tag: "0.0.1"
 
@@ -51,16 +51,8 @@ autoscaling:
 nodeSelector: {}
 
 configmap:
-  connectionstring:
-    host: postgres
-    port: 5432
-    database: iburguer
-    user: iburguer
-    password: "1234"
   massTransit:
     region: "us-east-1"
     accessKey: "accessKey"
     secretKey: "secret"
-    cartClosedQueue: "CartClosed"
-    paymentApprovedQueue: "PaymentApproved"
-    paymentRefusedQueue: "PaymentRefused"
+    queue: "CartClosed"

@@ -37,26 +37,6 @@ public class OrderController : ControllerBase
     }
     
     /// <summary>
-    /// Register a new order
-    /// </summary>
-    /// <remarks>Registers a new order in the system.</remarks>
-    /// <param name="useCase">The use case responsible for registering the order.</param>
-    /// <param name="request">The request containing information about the order to be registered.</param>
-    /// <param name="cancellationToken">Cancellation token (optional).</param>
-    /// <response code="201">Order created successfully.</response>
-    /// <response code="422">Invalid request. Missing or invalid parameters.</response>
-    /// <response code="500">Internal server error. Something went wrong on the server side.</response>
-    /// <returns>Returns an HTTP response indicating the success of the operation along with the registered order.</returns>
-    [HttpPost]
-    [ProducesResponseType(typeof(RegisterOrderResponse), 201)]
-    public async Task<ActionResult> RegisterOrder([FromServices] IRegisterOrderUseCase useCase, RegisterOrderRequest request, CancellationToken cancellationToken = default)
-    {
-        var response = await useCase.RegisterOrder(request, cancellationToken);
-
-        return Created("Order created successfully", response);
-    }
-    
-    /// <summary>
     /// Cancel an existing order
     /// </summary>
     /// <remarks>Cancels an existing order in the system.</remarks>

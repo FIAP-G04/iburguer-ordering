@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using iBurguer.Ordering.Infrastructure.SQS.Workers;
 using iBurguer.Ordering.Infrastructure.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,10 @@ public static class WebApiHostApplicationExtensions
                     .AllowAnyHeader();
             });
         });
+
+        builder.Services.AddHostedService<CartClosedWorker>();
+        builder.Services.AddHostedService<PaymentConfirmedWorker>();
+        builder.Services.AddHostedService<PaymentRefusedWorker>();
 
         return builder;
     }

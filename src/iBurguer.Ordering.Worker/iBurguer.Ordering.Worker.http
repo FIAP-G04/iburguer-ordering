@@ -1,0 +1,6 @@
+@iBurguer.Ordering.Worker_HostAddress = http://localhost:5265
+
+GET {{iBurguer.Ordering.Worker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

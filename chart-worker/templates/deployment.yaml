@@ -28,36 +28,6 @@ spec:
                 configMapKeyRef:
                   name: {{ include "FIAP.Diner.fullname" . }}
                   key: ConnectionStrings__PostgreSql
-            - name: MassTransit__Region
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__Region
-            - name: MassTransit__AccessKey
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__AccessKey
-            - name: MassTransit__SecretKey
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__SecretKey
-            - name: MassTransit__CartClosedQueue
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__CartClosedQueue
-            - name: MassTransit__PaymentApprovedQueue
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__PaymentApprovedQueue
-            - name: MassTransit__PaymentRefusedQueue
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "FIAP.Diner.fullname" . }}
-                  key: MassTransit__PaymentRefusedQueue
           ports:
             - containerPort: {{ .Values.service.targetPort }}
           livenessProbe:
