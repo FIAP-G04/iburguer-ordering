@@ -8,9 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using iBurguer.Ordering.Core.UseCases.ConfirmOrder;
 using iBurguer.Ordering.Core.UseCases.CancelOrder;
+using System.Diagnostics.CodeAnalysis;
 
 namespace iBurguer.Ordering.Infrastructure.SQS
 {
+    [ExcludeFromCodeCoverage]
     public abstract class SQSWorker : BackgroundService
     {
         protected readonly IConfiguration _configuration;

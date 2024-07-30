@@ -3,9 +3,11 @@ using iBurguer.Ordering.Infrastructure.SQS.Events;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace iBurguer.Ordering.Infrastructure.SQS.Workers
 {
+    [ExcludeFromCodeCoverage]
     public class PaymentRefusedWorker : SQSWorker
     {
         public PaymentRefusedWorker(IConfiguration configuration, IServiceScopeFactory scopeFactory) : base(configuration, scopeFactory) { }
