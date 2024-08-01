@@ -11,6 +11,7 @@ builder.AddWebApi()
     .AddPostgresSql()
     .AddRepositories()
     .AddUseCases()
+    .AddEventHandlers(builder.Configuration)
     .AddSerilog();
 
 var app = builder.Build();

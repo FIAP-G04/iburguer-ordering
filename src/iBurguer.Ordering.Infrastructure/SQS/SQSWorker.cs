@@ -1,14 +1,12 @@
-﻿using Amazon.Runtime;
-using Amazon.SQS.Model;
-using Amazon.SQS;
+﻿using Amazon.SQS.Model;
 using Microsoft.Extensions.Hosting;
-using Amazon;
 using iBurguer.Ordering.Core.UseCases.RegisterOrder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using iBurguer.Ordering.Core.UseCases.ConfirmOrder;
 using iBurguer.Ordering.Core.UseCases.CancelOrder;
 using System.Diagnostics.CodeAnalysis;
+using iBurguer.Ordering.Core.Abstractions;
 
 namespace iBurguer.Ordering.Infrastructure.SQS
 {
@@ -17,6 +15,7 @@ namespace iBurguer.Ordering.Infrastructure.SQS
     {
         protected readonly IConfiguration _configuration;
         protected readonly IServiceScopeFactory _scopeFactory;
+        protected ISQSService _sqsService;
         protected IRegisterOrderUseCase _registerOrderUseCase;
         protected IConfirmOrderUseCase _confirmOrderUseCase;
         protected ICancelOrderUseCase _cancelOrderUseCase;
@@ -31,17 +30,6 @@ namespace iBurguer.Ordering.Infrastructure.SQS
 
         protected abstract string GetQueue(SQSConfiguration config);
 
-        protected IAmazonSQS CreateClient(SQSConfiguration configuration)
-        {
-            var accessKey = configuration.AccessKey;
-            var secretKey = configuration.SecretKey;
-            var region = RegionEndpoint.USEast1;
-
-            var credentials = new BasicAWSCredentials(accessKey, secretKey);
-
-            return new AmazonSQSClient(credentials, region);
-        }
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var configuration = _configuration.GetRequiredSection("MassTransit").Get<SQSConfiguration>();
@@ -51,23 +39,22 @@ namespace iBurguer.Ordering.Infrastructure.SQS
             _registerOrderUseCase = serviceScope.ServiceProvider.GetRequiredService<IRegisterOrderUseCase>();
             _confirmOrderUseCase = serviceScope.ServiceProvider.GetRequiredService<IConfirmOrderUseCase>();
             _cancelOrderUseCase = serviceScope.ServiceProvider.GetRequiredService<ICancelOrderUseCase>();
-
-            var client = CreateClient(configuration);
+            _sqsService = serviceScope.ServiceProvider.GetRequiredService<ISQSService>();
 
             var queueName = GetQueue(configuration);
-            var queueUrl = await GetQueueUrl(client, queueName);
+            var queueUrl = await _sqsService.GetQueueUrl(queueName);
 
-            await Start(client, queueUrl, stoppingToken);
+            await Start(queueUrl, stoppingToken);
 
         }
 
-        private async Task Start(IAmazonSQS client, string queueUrl, CancellationToken cancellationToken)
+        private async Task Start(string queueUrl, CancellationToken cancellationToken)
         {
             Console.WriteLine($"Starting polling queue");
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                var messages = await ReceiveMessageAsync(client, queueUrl);
+                var messages = await _sqsService.ReceiveMessageAsync(queueUrl);
 
                 if (messages.Any())
                 {
@@ -76,7 +63,7 @@ namespace iBurguer.Ordering.Infrastructure.SQS
                     foreach (var msg in messages)
                     {
                         await Handle(msg, cancellationToken);
-                        await DeleteMessageAsync(client, queueUrl, msg.ReceiptHandle);
+                        await _sqsService.DeleteMessageAsync(queueUrl, msg.ReceiptHandle);
                     }
                 }
                 else
@@ -84,40 +71,6 @@ namespace iBurguer.Ordering.Infrastructure.SQS
                     await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
                 }
             }
-        }
-
-        protected static async Task<string> GetQueueUrl(IAmazonSQS client, string queueName)
-        {
-            var response = await client.GetQueueUrlAsync(new GetQueueUrlRequest
-            {
-                QueueName = queueName
-            });
-
-            return response.QueueUrl;
-        }
-
-        protected static async Task<List<Message>> ReceiveMessageAsync(IAmazonSQS client, string queueUrl)
-        {
-            var request = new ReceiveMessageRequest
-            {
-                QueueUrl = queueUrl,
-                MaxNumberOfMessages = 10
-            };
-
-            var messages = await client.ReceiveMessageAsync(request);
-
-            return messages.Messages;
-        }
-
-        protected static async Task DeleteMessageAsync(IAmazonSQS client, string queueUrl, string id)
-        {
-            var request = new DeleteMessageRequest
-            {
-                QueueUrl = queueUrl,
-                ReceiptHandle = id
-            };
-
-            await client.DeleteMessageAsync(request);
         }
     }
 }

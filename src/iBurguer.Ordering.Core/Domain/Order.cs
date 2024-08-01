@@ -40,6 +40,12 @@ public class Order : Entity<Guid>, IAggregateRoot
         
         _items = items;
         _trackings.Add(new OrderTracking(OrderStatus.WaitingForPayment, this));
+
+        RaiseEvent(new OrderRegisteredDomainEvent()
+        {
+            OrderId = Id,
+            Amount = Total.Amount
+        });
     }
 
     public IReadOnlyCollection<OrderTracking> Trackings => _trackings.AsReadOnly();
