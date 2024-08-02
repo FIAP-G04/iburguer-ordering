@@ -25,7 +25,8 @@ public class Order : Entity<Guid>, IAggregateRoot
     {
         InvalidOrderNumberException.ThrowIfNull(number);
         LeastOneOrderItemException.ThrowIf(!items.Any());
-        
+
+        Id = Guid.NewGuid();
         Number = number;
         Type = type;
         PickupCode = PickupCode.Generate();
