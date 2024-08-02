@@ -23,30 +23,23 @@ public class OrderRepository : IOrderRepository
     public async Task Save(Order order, CancellationToken cancellation)
     {
         await Set.AddAsync(order, cancellation);
-        await HandleEventsAndCommit(order, cancellation);
+        await _context.SaveChangesAsync(cancellation);
+
+        await DispatchEvents(order, cancellation);
     }
 
     public async Task Update(Order order, CancellationToken cancellation)
     {
         Set.Update(order);
-        await HandleEventsAndCommit(order, cancellation);
+        await _context.SaveChangesAsync(cancellation);
+
+        await DispatchEvents(order, cancellation);
     }
 
-    private async Task HandleEventsAndCommit(Order order, CancellationToken cancellation)
+    private async Task DispatchEvents(Order order, CancellationToken cancellation)
     {
-        try
-        {
-            foreach (var @event in order.Events)
-            {
-                await _dispatcher.Dispatch(@event, cancellation);
-            }
-
-            await _context.SaveChangesAsync(cancellation);
-        }
-        catch (Exception)
-        {
-            await _context.DisposeAsync();
-        }
+        foreach (var @event in order.Events)
+            await _dispatcher.Dispatch(@event, cancellation);
     }
 
     public async Task<Order?> GetById(Guid orderId, CancellationToken cancellation)
