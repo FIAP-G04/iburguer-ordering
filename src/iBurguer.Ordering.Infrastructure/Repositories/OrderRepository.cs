@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using iBurguer.Ordering.Core.Domain;
+using iBurguer.Ordering.Infrastructure.EventDispatcher;
 using iBurguer.Ordering.Infrastructure.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,13 @@ namespace iBurguer.Ordering.Infrastructure.Repositories;
 public class OrderRepository : IOrderRepository
 {
     private readonly Context _context;
+    private readonly IEventDispatcher _dispatcher;
 
-    public OrderRepository(Context context) =>
+    public OrderRepository(Context context, IEventDispatcher dispatcher)
+    {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        _dispatcher = dispatcher;
+    }
 
     public DbSet<Order> Set => _context.Set<Order>();
 
@@ -19,12 +24,22 @@ public class OrderRepository : IOrderRepository
     {
         await Set.AddAsync(order, cancellation);
         await _context.SaveChangesAsync(cancellation);
+
+        await DispatchEvents(order, cancellation);
     }
 
     public async Task Update(Order order, CancellationToken cancellation)
     {
         Set.Update(order);
         await _context.SaveChangesAsync(cancellation);
+
+        await DispatchEvents(order, cancellation);
+    }
+
+    private async Task DispatchEvents(Order order, CancellationToken cancellation)
+    {
+        foreach (var @event in order.Events)
+            await _dispatcher.Dispatch(@event, cancellation);
     }
 
     public async Task<Order?> GetById(Guid orderId, CancellationToken cancellation)

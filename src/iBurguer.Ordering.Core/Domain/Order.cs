@@ -25,7 +25,8 @@ public class Order : Entity<Guid>, IAggregateRoot
     {
         InvalidOrderNumberException.ThrowIfNull(number);
         LeastOneOrderItemException.ThrowIf(!items.Any());
-        
+
+        Id = Guid.NewGuid();
         Number = number;
         Type = type;
         PickupCode = PickupCode.Generate();
@@ -40,6 +41,12 @@ public class Order : Entity<Guid>, IAggregateRoot
         
         _items = items;
         _trackings.Add(new OrderTracking(OrderStatus.WaitingForPayment, this));
+
+        RaiseEvent(new OrderRegisteredDomainEvent()
+        {
+            OrderId = Id,
+            Amount = Total.Amount
+        });
     }
 
     public IReadOnlyCollection<OrderTracking> Trackings => _trackings.AsReadOnly();

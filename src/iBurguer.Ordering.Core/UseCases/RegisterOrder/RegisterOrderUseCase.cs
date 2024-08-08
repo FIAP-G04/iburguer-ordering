@@ -11,7 +11,10 @@ namespace iBurguer.Ordering.Core.UseCases.RegisterOrder
     {
         private readonly IOrderRepository _repository;
 
-        public RegisterOrderUseCase(IOrderRepository repository) => _repository = repository;
+        public RegisterOrderUseCase(IOrderRepository repository)
+        {
+            _repository = repository;
+        }
 
         public async Task<RegisterOrderResponse> RegisterOrder(RegisterOrderRequest request, CancellationToken cancellation)
         {
